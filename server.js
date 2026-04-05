@@ -13,7 +13,6 @@ app.use(cors());
 app.use(express.json());
 app.use(express.static(join(__dirname, 'public')));
 
-// Single company brief — streams response back
 app.post('/api/brief', async (req, res) => {
   const { ticker, name, filingInfo, financials } = req.body;
   if (!ticker) return res.status(400).json({ error: 'ticker required' });
@@ -35,16 +34,16 @@ ${finCtx}
 
 Using the data above and your knowledge through early 2025:
 
-**FINANCIAL PERFORMANCE**
-Analyze revenue trajectory (cite growth %), margin trends, EPS direction, cash generation. Reference the actual numbers provided.
+**FINANCIAL PEQFOPMANCE**
+Analyze revenue trajectory (cite growth %), margin trends, EPS direction, cash generation.
 
 **BUSINESS OVERVIEW**
 2-3 sentences: business model, market position, primary revenue drivers.
 
 **KEY RISKS**
-1. [Specific company risk]
-2. [Specific company risk]
-3. [Specific company risk]
+1. [Specific risk]
+2. [Specific risk]
+3. [Specific risk]
 
 **GROWTH CATALYSTS**
 1. [Specific catalyst]
@@ -52,13 +51,14 @@ Analyze revenue trajectory (cite growth %), margin trends, EPS direction, cash g
 3. [Specific catalyst]
 
 **BOTTOM LINE**
-One direct sentence on current trajectory.
+One direct sentence on trajectory.
 
 Be specific with numbers. No generic filler.`;
 
   res.setHeader('Content-Type', 'text/event-stream');
   res.setHeader('Cache-Control', 'no-cache');
   res.setHeader('Connection', 'keep-alive');
+  res.setHeader('Access-Control-Allow-Origin', '*');
 
   try {
     const stream = client.messages.stream({
@@ -66,7 +66,6 @@ Be specific with numbers. No generic filler.`;
       max_tokens: 1024,
       messages: [{ role: 'user', content: prompt }]
     });
-
     for await (const chunk of stream) {
       if (chunk.type === 'content_block_delta' && chunk.delta?.text) {
         res.write(`data: ${JSON.stringify({ text: chunk.delta.text })}\n\n`);
@@ -75,60 +74,26 @@ Be specific with numbers. No generic filler.`;
     res.write('data: [DONE]\n\n');
   } catch (e) {
     res.write(`data: ${JSON.stringify({ error: e.message })}\n\n`);
-  } finally {
-    res.end();
-  }
+  } finally { res.end(); }
 });
 
-// Industry synthesis — streams response
 app.post('/api/industry', async (req, res) => {
   const { industryName, companies } = req.body;
   if (!industryName || !companies?.length) return res.status(400).json({ error: 'industryName and companies required' });
-
-  const briefs = companies.map(c =>
-    `${c.ticker} (${c.name}): Rev ${c.latestRev || '—'} | NI ${c.latestNI || '—'} | Rev Growth ${c.revGrow || '—'} | Margin ${c.margin || '—'} | EPS Growth ${c.epsGrow || '—'}`
-  ).join('\n');
-
-  const prompt = `You are a portfolio manager. Based on these company snapshots for ${industryName}, provide an industry synthesis.
-
-${briefs}
-
-**INDUSTRY PULSE**
-2-3 sentences on overall sector health and momentum based on the data above.
-
-**DOMINANT THEMES**
-Top 2-3 macro or sector-specific themes driving this industry right now.
-
-**LEADERS VS. LAGGARDS**
-Which companies are outperforming and which are struggling, with specific reasoning from the data.
-
-**INVESTMENT ANGLE**
-Where the best risk/reward sits in this sector right now and why.
-
-Cite specific companies and numbers. Be direct.`;
-
+  const briefs = companies.map(c => `${c.ticker} (${c.name}): Rev ${c.latestRev || '—'} | NI ${c.latestNI || '—'} | Rev Growth ${c.revGrow || '—'} | Margin ${c.margin || '—'} | EPS Growth ${c.epsGrow || '—'}`).join('\n');
+  const prompt = `You are a portfolio manager. Synthesize these company snapshots for ${industryName}.\n \n${briefs}\n\n**INDUSTRY PULSE**\n2-3 sentences on sector health.\n\n**DOMINANT THEMES**\nTop 2-3 themes.\n\n)]**LEADERS VS. LAGGARDS**\nSpecific companies and why.\n\n**INVESTMENT ANGLE**\nBest risk/reward in this sector.`;
   res.setHeader('Content-Type', 'text/event-stream');
   res.setHeader('Cache-Control', 'no-cache');
   res.setHeader('Connection', 'keep-alive');
-
+  res.setHeader('Access-Control-Allow-Origin', '*');
   try {
-    const stream = client.messages.stream({
-      model: 'claude-sonnet-4-20250514',
-      max_tokens: 800,
-      messages: [{ role: 'user', content: prompt }]
-    });
-
+    const stream = client.messages.stream({ model: 'claude-sonnet-4-20250514', max_tokens: 800, messages: [{ role: 'user', content: prompt }] });
     for await (const chunk of stream) {
-      if (chunk.type === 'content_block_delta' && chunk.delta?.text) {
-        res.write(`data: ${JSON.stringify({ text: chunk.delta.text })}\n\n`);
-      }
+      if (chunk.type === 'content_block_delta' && chunk.delta?.text) res.write(`data: ${JSON.stringify({ text: chunk.delta.text })}\n\n`);
     }
     res.write('data: [DONE]\n\n');
-  } catch (e) {
-    res.write(`data: ${JSON.stringify({ error: e.message })}\n\n`);
-  } finally {
-    res.end();
-  }
+  } catch (e) { res.write(`data: ${JSON.stringify({ error: e.message })}\n\n`); }
+  finally { res.end(); }
 });
 
 const PORT = process.env.PORT || 3000;
