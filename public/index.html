@@ -139,6 +139,10 @@ tbody tr:hover td { background:var(--surface2); }
 .quick-btn { font-family:var(--mono); font-size:9px; padding:3px 8px; background:transparent; border:1px solid var(--border); border-radius:20px; color:var(--muted); cursor:pointer; transition:all 0.1s; }
 .quick-btn:hover { border-color:var(--accent); color:var(--accent); }
 .cursor { display:inline-block; width:2px; height:13px; background:var(--accent); margin-left:2px; animation:blink 1s step-end infinite; vertical-align:text-bottom; }
+.horizon-tabs { display:flex; gap:4px; margin-left:auto; }
+.horizon-tab { font-family:var(--mono); font-size:9px; padding:3px 8px; border-radius:20px; border:1px solid var(--border); color:var(--muted); cursor:pointer; background:transparent; transition:all 0.1s; }
+.horizon-tab.active { border-color:var(--accent2); color:var(--accent2); background:rgba(240,200,90,0.08); }
+.chart-controls { display:flex; align-items:center; gap:8px; margin-bottom:12px; flex-wrap:wrap; }
 .fade-up { animation:fadeUp 0.25s ease forwards; }
 @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
 @keyframes spin { to{transform:rotate(360deg)} }
@@ -207,9 +211,9 @@ tbody tr:hover td { background:var(--surface2); }
 // ── DATA ─────────────────────────────────────────────────────────────────
 const INDS = {
   healthcare_dist:{n:"Healthcare — Distribution",cos:[
-    {t:"CAH",n:"Cardinal Health",filing:{form:"10-Q",period_end:"Dec 31 2024",filed:"Feb 5 2025",fy_end:"June 30",url:"https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=CAH&type=10-Q"},
-     rev:["$69.8B","$67.2B","$62.0B","$59.9B"],ni:["$406M","$367M","$442M","$260M"],eps:["$1.71","$1.55","$1.83","$1.07"],opcf:["$812M","$643M","$1.1B","$489M"],
-     qtrs:["Q2 FY25","Q1 FY25","Q4 FY24","Q3 FY24"],assets:"$44.1B",cash:"$3.1B",debt:"$5.6B",revGrow:"+7%",margin:"0.6%",epsGrow:"+34%"},
+    {t:"CAH",n:"Cardinal Health",filing:{form:"10-Q",period_end:"Dec 31 2025",filed:"Feb 5 2026",fy_end:"June 30",url:"https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=CAH&type=10-Q"},
+     rev:["$65.6B","$64.0B","$69.8B","$67.2B"],ni:["$467M","$444M","$406M","$367M"],eps:["$1.97","$1.88","$1.71","$1.55"],opcf:["$877M","$1.3B","$812M","$643M"],
+     qtrs:["Q2 FY26","Q1 FY26","Q2 FY25","Q1 FY25"],assets:"$46.2B",cash:"$4.6B",debt:"$5.8B",revGrow:"+19%",margin:"0.7%",epsGrow:"+19%"},
     {t:"MCK",n:"McKesson",filing:{form:"10-Q",period_end:"Dec 31 2024",filed:"Feb 4 2025",fy_end:"March 31"},
      rev:["$95.3B","$93.0B","$88.9B","$84.1B"],ni:["$1.04B","$987M","$942M","$791M"],eps:["$8.03","$7.51","$7.07","$5.80"],opcf:["$1.2B","$1.1B","$980M","$1.4B"],
      qtrs:["Q3 FY25","Q2 FY25","Q1 FY25","Q4 FY24"],assets:"$67.3B",cash:"$2.8B",debt:"$6.1B",revGrow:"+13%",margin:"1.1%",epsGrow:"+38%"},
@@ -287,7 +291,8 @@ const INDS = {
 const QUICK = ["NVDA","MSFT","AAPL","META","AMZN","JPM","CAH","NFLX"];
 let mode = "company", cos = [], activeInd = null;
 const allKnown = Object.values(INDS).flatMap(i => i.cos);
-const charts = {}; // store Chart instances
+const charts = {};
+const horizons = {}; // store horizon per ticker (default = all quarters)
 
 // ── INIT ─────────────────────────────────────────────────────────────────
 (function init() {
@@ -385,8 +390,11 @@ function buildChart(ticker, kpiKey, d) {
   if(charts[canvasId]) { charts[canvasId].destroy(); }
 
   const kpi = KPI_DEFS.find(k=>k.key===kpiKey);
-  const labels = [...d.qtrs].reverse();
-  const values = [...d[kpiKey]].reverse().map(parseVal);
+  const horizon = horizons[ticker] || d.qtrs.length;
+  const allLabels = [...d.qtrs].reverse();
+  const allValues = [...d[kpiKey]].reverse().map(parseVal);
+  const labels = allLabels.slice(-horizon);
+  const values = allValues.slice(-horizon);
 
   charts[canvasId] = new Chart(canvas, {
     type: 'line',
@@ -418,12 +426,30 @@ function buildChart(ticker, kpiKey, d) {
 }
 
 function switchKpi(ticker, kpiKey, d) {
-  // Update tab active state
   KPI_DEFS.forEach(k => {
     const tab = document.getElementById(`kpi-${ticker}-${k.key}`);
     if(tab) tab.className = "kpi-tab" + (k.key===kpiKey?" active":"");
   });
   buildChart(ticker, kpiKey, d);
+}
+
+function switchHorizon(ticker, n) {
+  horizons[ticker] = n;
+  // Update horizon tab active state
+  const hzContainer = document.getElementById(`hz-${ticker}`);
+  if(hzContainer) {
+    hzContainer.querySelectorAll('.horizon-tab').forEach(btn => {
+      const btnN = parseInt(btn.getAttribute('onclick').match(/\d+/)[0]);
+      btn.className = 'horizon-tab' + (btnN === n ? ' active' : '');
+    });
+  }
+  // Find the active KPI tab and re-render
+  const co = cos.find(c=>c.t===ticker);
+  const activeKpi = KPI_DEFS.find(k => {
+    const tab = document.getElementById(`kpi-${ticker}-${k.key}`);
+    return tab?.classList.contains('active');
+  }) || KPI_DEFS[0];
+  buildChart(ticker, activeKpi.key, co?.data);
 }
 
 // ── RENDER CARDS ──────────────────────────────────────────────────────────
@@ -450,8 +476,15 @@ function buildCompanyCard(c) {
     <tbody>${d.qtrs.map((q,i)=>`<tr><td>${q}</td><td>${d.rev[i]}</td><td>${d.ni[i]}</td><td>${d.eps[i]}</td><td>${d.opcf[i]}</td></tr>`).join("")}</tbody>
   </table>`:"";
 
-  const kpiTabsHtml=d?.qtrs?`<div class="kpi-tabs">
-    ${KPI_DEFS.map(k=>`<button id="kpi-${c.t}-${k.key}" class="kpi-tab${k.key==="rev"?" active":""}" onclick="switchKpi('${c.t}','${k.key}',cos.find(x=>x.t==='${c.t}').data)">${k.label}</button>`).join("")}
+  const kpiTabsHtml=d?.qtrs?`<div class="chart-controls">
+    <div class="kpi-tabs">
+      ${KPI_DEFS.map(k=>`<button id="kpi-${c.t}-${k.key}" class="kpi-tab${k.key==="rev"?" active":""}" onclick="switchKpi('${c.t}','${k.key}',cos.find(x=>x.t==='${c.t}').data)">${k.label}</button>`).join("")}
+    </div>
+    <div class="horizon-tabs" id="hz-${c.t}">
+      <button class="horizon-tab active" onclick="switchHorizon('${c.t}',4)">All</button>
+      <button class="horizon-tab" onclick="switchHorizon('${c.t}',2)">2Q</button>
+      <button class="horizon-tab" onclick="switchHorizon('${c.t}',3)">3Q</button>
+    </div>
   </div>`:"";
 
   const metricsHtml=d?`<div class="fin-grid">
