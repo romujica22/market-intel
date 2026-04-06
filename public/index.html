@@ -175,7 +175,7 @@ tbody tr:hover td { background:var(--surface2); }
     <div id="paneI" style="display:none;">
       <div class="lbl">Industry</div>
       <select id="isel" onchange="loadIndustry(this.value)">
-        <option value="">Ã¢ÂÂ Choose Ã¢ÂÂ</option>
+        <option value="">- Choose -</option>
       </select>
     </div>
     <div style="flex:1;">
@@ -188,7 +188,7 @@ tbody tr:hover td { background:var(--surface2); }
     <div class="analyze-bar">
       <div class="sel-count" id="selCount"></div>
       <div style="display:flex;gap:6px;">
-        <button class="btn btn-accent" id="aBtn" onclick="runAnalysis()" disabled style="flex:1;">Analyze Ã¢ÂÂ</button>
+        <button class="btn btn-accent" id="aBtn" onclick="runAnalysis()" disabled style="flex:1;">Analyze -</button>
       </div>
       <div style="font-family:var(--mono);font-size:9px;color:var(--muted);line-height:1.5;">Analysis + charts + news stream inline.</div>
     </div>
@@ -196,11 +196,11 @@ tbody tr:hover td { background:var(--surface2); }
 
   <main class="main" id="mainPanel">
     <div class="panel-empty">
-      <div class="empty-icon">Ã¢Â¬Â¡</div>
+      <div class="empty-icon">-</div>
       <div class="empty-title">Add a ticker or select an industry</div>
       <div class="empty-steps">
         <div class="empty-step"><span class="step-n">1</span><span class="step-t">Add any ticker or pick an industry from the sidebar</span></div>
-        <div class="empty-step"><span class="step-n">2</span><span class="step-t">Click Analyze Ã¢ÂÂ financials, charts, news, and AI brief load inline</span></div>
+        <div class="empty-step"><span class="step-n">2</span><span class="step-t">Click Analyze - financials, charts, news, and AI brief load inline</span></div>
         <div class="empty-step"><span class="step-n">3</span><span class="step-t">Ask follow-up questions directly in the chat below each company</span></div>
       </div>
     </div>
@@ -208,9 +208,9 @@ tbody tr:hover td { background:var(--surface2); }
 </div>
 
 <script>
-// Ã¢ÂÂÃ¢ÂÂ DATA Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ
+// -Â DATA -Â-Â-Â-Â-Â-Â-Â-Â-Â-Â-Â-Â-Â-Â-Â-Â-Â-Â-Â-Â-Â-Â-Â-Â-Â-Â-Â-Â-Â-Â-Â-Â-
 const INDS = {
-  healthcare_dist:{n:"Healthcare Ã¢ÂÂ Distribution",cos:[
+  healthcare_dist:{n:"Healthcare - Distribution",cos:[
     {t:"CAH",n:"Cardinal Health",filing:{form:"10-Q",period_end:"Dec 31 2025",filed:"Feb 5 2026",fy_end:"June 30",url:"https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=CAH&type=10-Q"},
      rev:["$65.6B","$64.0B","$60.2B","$54.9B","$69.8B","$67.2B","$62.0B","$59.9B"],ni:["$467M","$444M","$428M","$492M","$406M","$367M","$442M","$260M"],eps:["$1.97","$1.88","$1.00","$2.10","$1.71","$1.55","$1.83","$1.07"],opcf:["$877M","$1.3B","$719M","$807M","$812M","$643M","$1.1B","$489M"],
      qtrs:["Q2 FY26","Q1 FY26","Q4 FY25","Q3 FY25","Q2 FY25","Q1 FY25","Q4 FY24","Q3 FY24"],assets:"$46.2B",cash:"$4.6B",debt:"$5.8B",revGrow:"+19%",margin:"0.7%",epsGrow:"+19%"},
@@ -221,7 +221,7 @@ const INDS = {
      rev:["$81.5B","$74.9B","$72.3B","$70.1B","$67.8B","$66.0B","$64.2B","$61.5B"],ni:["$726M","$658M","$601M","$578M","$540M","$512M","$487M","$461M"],eps:["$3.73","$3.36","$3.05","$2.91","$2.71","$2.56","$2.42","$2.28"],opcf:["$1.1B","$1.6B","$890M","$820M","$760M","$1.2B","$720M","$680M"],
      qtrs:["Q1 FY25","Q4 FY24","Q3 FY24","Q2 FY24","Q1 FY24","Q4 FY23","Q3 FY23","Q2 FY23"],assets:"$51.2B",cash:"$2.1B",debt:"$5.3B",revGrow:"+16%",margin:"0.9%",epsGrow:"+28%"}
   ]},
-  financials_banks:{n:"Financials Ã¢ÂÂ Banks",cos:[
+  financials_banks:{n:"Financials - Banks",cos:[
     {t:"JPM",n:"JPMorgan Chase",filing:{form:"10-K",period_end:"Dec 31 2024",filed:"Jan 15 2025",fy_end:"Dec 31"},
      rev:["$43.0B","$42.4B","$41.9B","$41.1B","$38.6B","$39.9B","$41.3B","$38.0B"],ni:["$14.0B","$12.9B","$13.1B","$13.4B","$9.3B","$13.2B","$18.1B","$14.5B"],eps:["$4.81","$4.37","$4.44","$4.63","$3.04","$4.33","$6.12","$4.10"],opcf:["$18B","$16B","$15B","$22B","$14B","$17B","$20B","$15B"],
      qtrs:["Q4 2024","Q3 2024","Q2 2024","Q1 2024","Q4 2023","Q3 2023","Q2 2023","Q1 2023"],assets:"$4.0T",cash:"$529B",debt:"$300B",revGrow:"+11%",margin:"32%",epsGrow:"+18%"},
@@ -232,7 +232,7 @@ const INDS = {
      rev:["$16.2B","$15.4B","$15.0B","$15.1B","$12.9B","$13.3B","$13.5B","$14.5B"],ni:["$3.7B","$3.2B","$3.1B","$3.4B","$1.5B","$2.4B","$2.2B","$3.0B"],eps:["$2.22","$1.88","$1.82","$2.02","$0.85","$1.38","$1.24","$1.70"],opcf:["$4B","$3B","$3B","$5B","$2B","$3B","$3B","$4B"],
      qtrs:["Q4 2024","Q3 2024","Q2 2024","Q1 2024","Q4 2023","Q3 2023","Q2 2023","Q1 2023"],assets:"$1.2T",cash:"$145B",debt:"$92B",revGrow:"+26%",margin:"23%",epsGrow:"+47%"}
   ]},
-  tech_software:{n:"Technology Ã¢ÂÂ Software",cos:[
+  tech_software:{n:"Technology - Software",cos:[
     {t:"MSFT",n:"Microsoft",filing:{form:"10-Q",period_end:"Dec 31 2025",filed:"Jan 28 2026",fy_end:"June 30"},
      rev:["$81.3B","$69.6B","$65.6B","$64.7B","$61.9B","$56.5B","$52.7B","$53.0B"],ni:["$38.5B","$24.1B","$24.7B","$22.0B","$21.9B","$18.3B","$20.1B","$21.9B"],eps:["$5.16","$3.23","$3.30","$2.95","$2.94","$2.45","$2.69","$2.93"],opcf:["$37.5B","$31.9B","$34.2B","$28.1B","$31.9B","$24.8B","$28.7B","$27.8B"],
      qtrs:["Q2 FY26","Q2 FY25","Q1 FY25","Q4 FY24","Q3 FY24","Q2 FY24","Q1 FY24","Q4 FY23"],assets:"$512B",cash:"$71B",debt:"$43B",revGrow:"+17%",margin:"47%",epsGrow:"+60%"},
@@ -243,7 +243,7 @@ const INDS = {
      rev:["$726M","$678M","$634M","$603M","$608M","$558M","$525M","$491M"],ni:["$149M","$144M","$106M","$210M","$170M","$72M","$56M","$31M"],eps:["$0.06","$0.06","$0.04","$0.08","$0.07","$0.03","$0.02","$0.01"],opcf:["$163M","$149M","$205M","$231M","$214M","$132M","$190M","$177M"],
      qtrs:["Q3 2024","Q2 2024","Q1 2024","Q4 2023","Q3 2023","Q2 2023","Q1 2023","Q4 2022"],assets:"$5.1B",cash:"$4.1B",debt:"$0",revGrow:"+30%",margin:"21%",epsGrow:"+100%"}
   ]},
-  tech_hardware:{n:"Technology Ã¢ÂÂ Hardware",cos:[
+  tech_hardware:{n:"Technology - Hardware",cos:[
     {t:"AAPL",n:"Apple",filing:{form:"10-Q",period_end:"Dec 28 2025",filed:"Jan 29 2026",fy_end:"Sep 28"},
      rev:["$143.8B","$94.9B","$85.8B","$90.8B","$124.3B","$94.9B","$85.8B","$90.4B"],ni:["$36.3B","$14.7B","$23.6B","$23.6B","$33.9B","$14.7B","$21.4B","$23.6B"],eps:["$2.84","$0.97","$1.53","$1.53","$2.40","$0.97","$1.40","$1.53"],opcf:["$53.9B","$26.8B","$22.7B","$28.3B","$29.9B","$26.8B","$22.7B","$28.3B"],
      qtrs:["Q1 FY26","Q4 FY25","Q3 FY25","Q2 FY25","Q1 FY25","Q4 FY24","Q3 FY24","Q2 FY24"],assets:"$364B",cash:"$66B",debt:"$97B",revGrow:"+16%",margin:"29%",epsGrow:"+18%"},
@@ -254,7 +254,7 @@ const INDS = {
      rev:["$6.8B","$5.8B","$5.5B","$6.2B","$6.2B","$5.4B","$5.1B","$5.6B"],ni:["$771M","$265M","$123M","$667M","$667M","$299M","$123M","$786M"],eps:["$0.47","$0.16","$0.07","$0.41","$0.41","$0.18","$0.07","$0.46"],opcf:["$628M","$593M","$369M","$617M","$530M","$421M","$295M","$587M"],
      qtrs:["Q3 2024","Q2 2024","Q1 2024","Q4 2023","Q3 2023","Q2 2023","Q1 2023","Q4 2022"],assets:"$68B",cash:"$4.5B",debt:"$1.7B",revGrow:"+18%",margin:"11%",epsGrow:"+158%"}
   ]},
-  energy_oil:{n:"Energy Ã¢ÂÂ Oil & Gas",cos:[
+  energy_oil:{n:"Energy - Oil & Gas",cos:[
     {t:"XOM",n:"ExxonMobil",filing:{form:"10-K",period_end:"Dec 31 2024",filed:"Feb 21 2025",fy_end:"Dec 31"},
      rev:["$92.5B","$90.0B","$93.1B","$80.4B","$87.7B","$90.8B","$93.1B","$84.3B"],ni:["$7.4B","$8.6B","$8.6B","$8.2B","$7.6B","$9.1B","$7.9B","$8.2B"],eps:["$1.72","$1.92","$2.14","$2.06","$1.91","$2.25","$1.94","$2.06"],opcf:["$12.2B","$14.3B","$14.6B","$13.0B","$14.0B","$16.0B","$9.4B","$10.0B"],
      qtrs:["Q4 2024","Q3 2024","Q2 2024","Q1 2024","Q4 2023","Q3 2023","Q2 2023","Q1 2023"],assets:"$453B",cash:"$24B",debt:"$38B",revGrow:"+3%",margin:"8%",epsGrow:"-17%"},
@@ -262,7 +262,7 @@ const INDS = {
      rev:["$48.3B","$50.7B","$51.2B","$48.7B","$47.0B","$51.9B","$50.2B","$50.8B"],ni:["$3.2B","$4.5B","$4.7B","$5.5B","$6.5B","$6.5B","$6.0B","$6.6B"],eps:["$1.71","$2.48","$2.55","$2.93","$3.45","$3.45","$3.20","$3.46"],opcf:["$7.4B","$9.7B","$7.3B","$7.1B","$8.7B","$9.7B","$8.2B","$7.7B"],
      qtrs:["Q4 2024","Q3 2024","Q2 2024","Q1 2024","Q4 2023","Q3 2023","Q2 2023","Q1 2023"],assets:"$256B",cash:"$7B",debt:"$23B",revGrow:"-5%",margin:"7%",epsGrow:"-37%"}
   ]},
-  consumer_retail:{n:"Consumer Ã¢ÂÂ Retail",cos:[
+  consumer_retail:{n:"Consumer - Retail",cos:[
     {t:"AMZN",n:"Amazon",filing:{form:"10-K",period_end:"Dec 31 2024",filed:"Feb 6 2025",fy_end:"Dec 31"},
      rev:["$187.8B","$158.9B","$148.0B","$143.3B","$170.0B","$143.1B","$134.4B","$127.4B"],ni:["$20.0B","$17.4B","$18.0B","$13.9B","$10.6B","$9.9B","$6.7B","$3.2B"],eps:["$2.22","$1.60","$1.64","$1.26","$1.00","$0.94","$0.65","$0.31"],opcf:["$23.2B","$21.2B","$25.0B","$18.5B","$21.5B","$21.2B","$16.5B","$15.3B"],
      qtrs:["Q4 2024","Q3 2024","Q2 2024","Q1 2024","Q4 2023","Q3 2023","Q2 2023","Q1 2023"],assets:"$624B",cash:"$88B",debt:"$58B",revGrow:"+10%",margin:"11%",epsGrow:"+88%"},
@@ -294,7 +294,7 @@ const allKnown = Object.values(INDS).flatMap(i => i.cos);
 const charts = {};
 const horizons = {}; // store horizon per ticker (default = all quarters)
 
-// Ã¢ÂÂÃ¢ÂÂ INIT Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ
+// -Â INIT -Â-Â-Â-Â-Â-Â-Â-Â-Â-Â-Â-Â-Â-Â-Â-Â-Â-Â-Â-Â-Â-Â-Â-Â-Â-Â-Â-Â-Â-Â-Â-Â-
 (function init() {
   const isel = document.getElementById("isel");
   Object.entries(INDS).forEach(([k,v]) => {
@@ -349,7 +349,7 @@ function toggleCo(i) {
 
 function clearAll() {
   cos=[]; activeInd=null; document.getElementById("isel").value=""; renderSidebar();
-  document.getElementById("mainPanel").innerHTML=`<div class="panel-empty"><div class="empty-icon">Ã¢Â¬Â¡</div><div class="empty-title">Add a ticker or select an industry</div></div>`;
+  document.getElementById("mainPanel").innerHTML=`<div class="panel-empty"><div class="empty-icon">-</div><div class="empty-title">Add a ticker or select an industry</div></div>`;
 }
 
 function renderSidebar() {
@@ -357,15 +357,15 @@ function renderSidebar() {
   const list=document.getElementById("coList");
   list.innerHTML=!cos.length?'<div style="font-size:11px;color:var(--muted);text-align:center;padding:12px;">None added yet</div>':
     cos.map((c,i)=>`<div class="co-item ${c.on?"on":""}" onclick="toggleCo(${i})">
-      <span class="co-ticker">${c.t}</span><span class="co-name">${c.n!==c.t?c.n:"Ã¢ÂÂ"}</span>
-      ${c.on?'<span style="font-size:9px;color:var(--accent);">Ã¢ÂÂ</span>':""}
+      <span class="co-ticker">${c.t}</span><span class="co-name">${c.n!==c.t?c.n:"-"}</span>
+      ${c.on?'<span style="font-size:9px;color:var(--accent);">-</span>':""}
     </div>`).join("");
   document.getElementById("coCount").textContent=cos.length?`(${cos.length})`:"";
   document.getElementById("selCount").textContent=sel.length?`${sel.length} selected`:"";
   document.getElementById("aBtn").disabled=!sel.length;
 }
 
-// Ã¢ÂÂÃ¢ÂÂ CHARTS Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ
+// -Â CHARTS -Â-Â-Â-Â-Â-Â-Â-Â-Â-Â-Â-Â-Â-Â-Â-Â-Â-Â-Â-Â-Â-Â-Â-Â-Â-Â-Â-Â-Â-Â-Â-Â
 const KPI_DEFS = [
   {key:"rev",label:"Revenue",color:"#c8f05a"},
   {key:"ni",label:"Net Income",color:"#60b4f0"},
@@ -374,7 +374,7 @@ const KPI_DEFS = [
 ];
 
 function parseVal(str) {
-  if(!str||str==="Ã¢ÂÂ") return null;
+  if(!str||str==="-") return null;
   const s=str.replace(/[$,\s]/g,"").toUpperCase();
   if(s.endsWith("T")) return parseFloat(s)*1000;
   if(s.endsWith("B")) return parseFloat(s);
@@ -453,7 +453,7 @@ function switchHorizon(ticker, n) {
   buildChart(ticker, activeKpi.key, co?.data);
 }
 
-// Ã¢ÂÂÃ¢ÂÂ RENDER CARDS Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ
+// -Â RENDER CARDS -Â-Â-Â-Â-Â-Â-Â-Â-Â-Â-Â-Â-Â-Â-Â-Â-Â-Â-Â-Â-Â-Â-Â-Â-Â-Â-Â-Â-Â
 function renderMain() {
   const sel=cos.filter(c=>c.on);
   if(!sel.length){clearAll();return;}
@@ -469,7 +469,7 @@ function buildCompanyCard(c) {
     <span class="chip">Period <span>${d.filing.period_end}</span></span>
     <span class="chip">Filed <span>${d.filing.filed}</span></span>
     <span class="chip">FY ends <span>${d.filing.fy_end}</span></span>
-    ${d.filing.url?`<a class="filing-link" href="${d.filing.url}" target="_blank">EDGAR Ã¢ÂÂ</a>`:""}
+    ${d.filing.url?`<a class="filing-link" href="${d.filing.url}" target="_blank">EDGAR -</a>`:""}
   </div>`:"";
 
   const qtrHtml=d?.qtrs?`<table class="qtr-table">
@@ -501,8 +501,8 @@ function buildCompanyCard(c) {
       <div class="card-badges">
         ${d?.filing?`<span class="badge badge-sec">SEC ${d.filing.form}</span>`:""}
         <span class="badge badge-ai">AI Brief</span>
-        <button class="btn btn-ghost btn-sm" onclick="runBrief('${c.t}')">Analyze Ã¢ÂÂ</button>
-        <button class="btn btn-info btn-sm" onclick="runNews('${c.t}','${c.n}','company')">News Ã¢ÂÂ</button>
+        <button class="btn btn-ghost btn-sm" onclick="runBrief('${c.t}')">Analyze -</button>
+        <button class="btn btn-info btn-sm" onclick="runNews('${c.t}','${c.n}','company')">News -</button>
       </div>
     </div>
     <div class="card-body">
@@ -513,41 +513,41 @@ function buildCompanyCard(c) {
       <div class="chart-section">${kpiTabsHtml}<div class="chart-wrap"><canvas id="chart-${c.t}"></canvas></div></div>`:""}
       <div class="section-rule"><span class="section-rule-lbl">Market News</span><span class="section-rule-line"></span></div>
       <div class="news-box" id="news-${c.t}">
-        <div class="ai-box-lbl" style="color:var(--info);">Ã°ÂÂÂ° News</div>
-        <div class="ai-content" style="color:var(--muted);font-size:11px;">Click "News Ã¢ÂÂ" to load latest market news.</div>
+        <div class="ai-box-lbl" style="color:var(--info);"> News</div>
+        <div class="ai-content" style="color:var(--muted);font-size:11px;">Click "News -" to load latest market news.</div>
       </div>
       <div class="section-rule"><span class="section-rule-lbl">Intelligence Brief</span><span class="section-rule-line"></span></div>
       <div class="ai-box" id="ai-${c.t}">
-        <div class="ai-box-lbl">Ã¢Â¬Â¡ Claude Analysis</div>
-        <div class="ai-content" style="color:var(--muted);font-size:12px;">Click "Analyze Ã¢ÂÂ" to generate the intelligence brief.</div>
+        <div class="ai-box-lbl">- Claude Analysis</div>
+        <div class="ai-content" style="color:var(--muted);font-size:12px;">Click "Analyze -" to generate the intelligence brief.</div>
       </div>
       <div class="section-rule"><span class="section-rule-lbl">Ask a Question</span><span class="section-rule-line"></span></div>
       <div class="chat-box" id="chat-${c.t}">
         <div class="chat-messages" id="chatmsgs-${c.t}">
-          <div style="font-size:11px;color:var(--muted);text-align:center;padding:8px;">Ask anything about ${c.t} Ã¢ÂÂ earnings quality, risks, competitive position, valuation...</div>
+          <div style="font-size:11px;color:var(--muted);text-align:center;padding:8px;">Ask anything about ${c.t} - earnings quality, risks, competitive position, valuation...</div>
         </div>
         <div class="chat-input-row">
           <input class="chat-input" id="chatinput-${c.t}" placeholder="e.g. What's their AI exposure? How's cash flow trending?" 
             onkeydown="if(event.key==='Enter')sendChat('${c.t}','${c.n.replace(/'/g,"\\'")}')">
-          <button class="btn btn-ghost btn-sm" onclick="sendChat('${c.t}','${c.n.replace(/'/g,"\\'")}')">Ask Ã¢ÂÂ</button>
+          <button class="btn btn-ghost btn-sm" onclick="sendChat('${c.t}','${c.n.replace(/'/g,"\\'")}')">Ask -</button>
         </div>
       </div>
     </div>
   </div>`;
 }
 
-// Ã¢ÂÂÃ¢ÂÂ RENDER INDUSTRY DASHBOARD Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ
+// -Â RENDER INDUSTRY DASHBOARD -Â-Â-Â-Â-Â-Â-Â-Â-Â-Â-Â-Â-Â-Â-Â-Â-Â-Â-Â-Â-Â-Â-
 function renderDashboard() {
   if(!activeInd) return;
   const ind=INDS[activeInd];
   const sel=cos.filter(c=>c.on);
   document.getElementById("mainPanel").innerHTML=`
     <div class="dash-header">
-      <div><div class="dash-title">${ind.n}</div><div class="dash-sub">Industry dashboard ÃÂ· ${sel.length} companies</div></div>
+      <div><div class="dash-title">${ind.n}</div><div class="dash-sub">Industry dashboard &middot; ${sel.length} companies</div></div>
       <div style="display:flex;gap:8px;">
-        <button class="btn btn-info" onclick="runNews('${ind.n}','${ind.n}','industry')">Industry News Ã¢ÂÂ</button>
-        <button class="btn btn-ghost" onclick="runIndustrySynth()">Synthesis Ã¢ÂÂ</button>
-        <button class="btn btn-accent" onclick="runAllBriefs()">Analyze All Ã¢ÂÂ</button>
+        <button class="btn btn-info" onclick="runNews('${ind.n}','${ind.n}','industry')">Industry News -</button>
+        <button class="btn btn-ghost" onclick="runIndustrySynth()">Synthesis -</button>
+        <button class="btn btn-accent" onclick="runAllBriefs()">Analyze All -</button>
       </div>
     </div>
     <div class="tbl-wrap" style="margin-bottom:16px;">
@@ -558,16 +558,16 @@ function renderDashboard() {
       </tr></thead><tbody>
         ${cos.map(c=>{const d=c.data;const rg=d?.revGrow||"";return`<tr>
           <td><div class="co-cell-tick">${c.t}</div><div class="co-cell-name">${c.n}</div></td>
-          <td class="r">${d?.rev?.[0]||"Ã¢ÂÂ"}</td><td class="r">${d?.ni?.[0]||"Ã¢ÂÂ"}</td><td class="r">${d?.eps?.[0]||"Ã¢ÂÂ"}</td>
-          <td class="r ${rg.startsWith("+")?'pos':rg.startsWith("-")?"neg":""}">${d?.revGrow||"Ã¢ÂÂ"}</td>
-          <td class="r">${d?.margin||"Ã¢ÂÂ"}</td><td class="r">${d?.epsGrow||"Ã¢ÂÂ"}</td>
-          <td class="r">${d?.assets||"Ã¢ÂÂ"}</td><td class="r">${d?.cash||"Ã¢ÂÂ"}</td>
-          <td><button class="btn btn-ghost btn-sm" onclick="runBriefInDash('${c.t}')">Brief Ã¢ÂÂ</button></td>
+          <td class="r">${d?.rev?.[0]||"-"}</td><td class="r">${d?.ni?.[0]||"-"}</td><td class="r">${d?.eps?.[0]||"-"}</td>
+          <td class="r ${rg.startsWith("+")?'pos':rg.startsWith("-")?"neg":""}">${d?.revGrow||"-"}</td>
+          <td class="r">${d?.margin||"-"}</td><td class="r">${d?.epsGrow||"-"}</td>
+          <td class="r">${d?.assets||"-"}</td><td class="r">${d?.cash||"-"}</td>
+          <td><button class="btn btn-ghost btn-sm" onclick="runBriefInDash('${c.t}')">Brief -</button></td>
         </tr>`;}).join("")}
       </tbody></table>
     </div>
     <div id="newsIndustry" class="news-box" style="margin-bottom:16px;display:none;">
-      <div class="ai-box-lbl" style="color:var(--info);">Ã°ÂÂÂ° Industry News</div>
+      <div class="ai-box-lbl" style="color:var(--info);"> Industry News</div>
       <div class="ai-content"></div>
     </div>
     <div id="synthBox"></div>
@@ -575,7 +575,7 @@ function renderDashboard() {
   sel.forEach(c=>{ if(c.data?.qtrs) buildChart(c.t,"rev",c.data); });
 }
 
-// Ã¢ÂÂÃ¢ÂÂ STREAMING Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ
+// -Â STREAMING -Â-Â-Â-Â-Â-Â-Â-Â-Â-Â-Â-Â-Â-Â-Â-Â-Â-Â-Â-Â-Â-Â-Â-Â-Â-Â-Â-Â-Â-Â-
 function formatAI(raw) {
   return raw
     .replace(/\*\*([^*]+)\*\*/g,(_,t)=>`<span class="ai-h">${t}</span>`)
@@ -589,8 +589,8 @@ function formatAI(raw) {
 function formatNews(raw) {
   return raw
     .replace(/\*\*([^*]+)\*\*/g,(_,t)=>`<div style="font-family:var(--mono);font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--info);margin-bottom:10px;">${t}</div>`)
-    .replace(/Ã°ÂÂÂ°\s(.+?)Ã¢ÂÂ\s(.+?)(?=Ã°ÂÂÂ°|$)/gs, (_,headline,summary)=>
-      `<div class="news-item"><span class="news-icon">Ã°ÂÂÂ°</span><div><strong style="color:var(--text);font-size:12px;">${headline.trim()}</strong><br><span style="color:var(--muted);font-size:11px;line-height:1.6;">${summary.trim()}</span></div></div>`
+    .replace(/\s(.+?)-+?)(?=|$)/gs, (_,headline,summary)=>
+      `<div class="news-item"><span class="news-icon"></span><div><strong style="color:var(--text);font-size:12px;">${headline.trim()}</strong><br><span style="color:var(--muted);font-size:11px;line-height:1.6;">${summary.trim()}</span></div></div>`
     )
     .replace(/\n/g,"");
 }
@@ -622,7 +622,7 @@ async function streamTo(url, body, targetEl, labelText, isNews=false) {
       }
     }
   } catch(e){if(content) content.innerHTML=`<span class="ai-error">Error: ${e.message}</span>`;}
-  finally{cursor.remove();if(lbl) lbl.innerHTML=isNews?"Ã°ÂÂÂ° Latest News Ã¢ÂÂ complete":"Ã¢Â¬Â¡ Claude Analysis Ã¢ÂÂ complete";}
+  finally{cursor.remove();if(lbl) lbl.innerHTML=isNews?" Latest News - complete":"- Claude Analysis - complete";}
 }
 
 async function runBrief(ticker) {
@@ -673,7 +673,7 @@ async function runIndustrySynth() {
   await streamTo("/api/industry",{industryName:INDS[activeInd]?.n,companies},document.getElementById("synthInner"),"Synthesizing industry...");
 }
 
-// Ã¢ÂÂÃ¢ÂÂ CHAT Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ
+// -Â CHAT -Â-Â-Â-Â-Â-Â-Â-Â-Â-Â-Â-Â-Â-Â-Â-Â-Â-Â-Â-Â-Â-Â-Â-Â-Â-Â-Â-Â-Â-Â-Â-Â-Â
 async function sendChat(ticker, name) {
   const input=document.getElementById(`chatinput-${ticker}`);
   const question=input.value.trim(); if(!question) return;
